@@ -87,7 +87,13 @@ const AUDIENCE: { icon: LucideIcon; title: string; body: string }[] = [
   },
 ];
 
-const TESTIMONIALS = [
+const TESTIMONIALS: {
+  name: string;
+  role: string;
+  img: string;
+  imgClass?: string;
+  quote: string;
+}[] = [
   {
     name: "לבנת מזרחי רינסקי",
     role: 'מנכ"לית חבר הבורסה, בית ההשקעות IBI',
@@ -99,6 +105,8 @@ const TESTIMONIALS = [
     name: "שחר אזרחי",
     role: 'סמנכ"ל הנדסה, אשדר',
     img: "/images/testimonials/shahar-ezrahi.jpg",
+    // Tight headshot on a white background — contain (not cover) so the head isn't cropped
+    imgClass: "object-contain bg-white",
     quote:
       "מסלול ההכשרה ביוזמת המנהלים הייחודית מיועד לטיפוח מנהיגות אישית ולפיתוח כלים להובלת שינוי בחברה הישראלית ולמעורבות בזירה הציבורית.",
   },
@@ -683,12 +691,15 @@ function Testimonials() {
               key={t.name}
               className="flex flex-col rounded-3xl overflow-hidden border border-neutral-border bg-white shadow-soft hover:shadow-elevated motion-safe:hover:-translate-y-1 transition-all"
             >
-              <img
-                src={t.img}
-                alt={t.name}
-                className="w-full h-64 object-cover object-[50%_25%]"
-                loading="lazy"
-              />
+              <div className="relative aspect-square overflow-hidden">
+                <img
+                  src={t.img}
+                  alt={t.name}
+                  className={`w-full h-full ${t.imgClass ?? "object-cover object-top"}`}
+                  loading="lazy"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
+              </div>
               <div className="p-6 flex flex-col flex-1">
                 <figcaption className="border-s-4 border-brand-sky ps-4">
                   <div className="text-lg font-black text-brand-navy leading-tight">{t.name}</div>
