@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  GraduationCap,
   Award,
   Rocket,
   Network,
@@ -183,8 +182,8 @@ function LandingPage() {
       <Header />
       <main>
         <Hero />
-        <Reasons />
         <MissionNetwork />
+        <Reasons />
         <Audience />
         <Accelerator />
         <Testimonials />
@@ -254,11 +253,6 @@ function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="animate-fade-up text-center lg:text-start">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 text-sm font-semibold text-brand-light-blue mb-6">
-              <GraduationCap className="w-4 h-4 text-brand-mint" />
-              בשיתוף Harvard Kennedy School
-            </div>
-
             <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black leading-tight tracking-tight">
               יוזמת <span className="text-brand-mint">מנומדין–פרס</span> למנהלים
               <span className="block mt-3 text-white/90 text-2xl sm:text-3xl font-bold">
@@ -266,8 +260,12 @@ function Hero() {
               </span>
             </h1>
 
-            <p className="mt-5 text-lg text-white/90 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              תוכנית ייחודית למנהלות ומנהלים בכירים בשיתוף Harvard Kennedy School והמרכז האקדמי פרס.
+            <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              תוכנית ייחודית למנהלות ומנהלים בכירים בשיתוף{" "}
+              <mark className="bg-brand-mint/20 text-brand-mint font-bold px-1.5 py-0.5 rounded-md">
+                Harvard Kennedy School
+              </mark>{" "}
+              והמרכז האקדמי פרס.
             </p>
           </div>
 
@@ -597,7 +595,7 @@ function Reasons() {
 
 function Audience() {
   return (
-    <section className="py-20 lg:py-28 bg-brand-light-blue/30">
+    <section className="py-20 lg:py-28 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="קהל היעד"
