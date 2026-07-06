@@ -91,21 +91,21 @@ const TESTIMONIALS = [
   {
     name: "לבנת מזרחי רינסקי",
     role: 'מנכ"לית חבר הבורסה, בית ההשקעות IBI',
-    img: "https://www.pac.ac.il/wp-content/uploads/2024/09/%D7%9C%D7%91%D7%A0%D7%AA-%D7%9E%D7%96%D7%A8%D7%97%D7%99-%D7%A8%D7%99%D7%A0%D7%A1%D7%A7%D7%99-%D7%94%D7%A8%D7%95%D7%95%D7%90%D7%A8%D7%93.png",
+    img: "/images/testimonials/livnat-mizrahi.jpg",
     quote:
       "דווקא בעידן שבו חוסר הסדר ואי האמון שולטים בסדר היום, נדרש מכל אחד ואחת מאתנו לעשות מעשה ולהשפיע. יוזמת מנומדין-פרס למנהלים יוצרת קרקע פורייה לחשיבה ולעשייה קבוצתית שתוביל לשינוי.",
   },
   {
     name: "שחר אזרחי",
     role: 'סמנכ"ל הנדסה, אשדר',
-    img: "https://www.pac.ac.il/wp-content/uploads/2024/09/%D7%A9%D7%97%D7%A8-%D7%90%D7%96%D7%A8%D7%97%D7%99.png",
+    img: "/images/testimonials/shahar-ezrahi.jpg",
     quote:
       "מסלול ההכשרה ביוזמת המנהלים הייחודית מיועד לטיפוח מנהיגות אישית ולפיתוח כלים להובלת שינוי בחברה הישראלית ולמעורבות בזירה הציבורית.",
   },
   {
     name: "יפתח עצמון",
     role: 'מנכ"ל חטיבת הקפה והממתקים, קבוצת שטראוס',
-    img: "https://www.pac.ac.il/wp-content/uploads/2024/11/%D7%99%D7%A4%D7%AA%D7%97-%D7%A2%D7%A6%D7%9E%D7%95%D7%9F-.png",
+    img: "/images/testimonials/yiftach-atzmon.jpg",
     quote:
       "יוזמת מנומדין-פרס למנהלים היא הזדמנות לשלב בחיים המקצועיים והאישיים העמוסים למידה משמעותית, שמוסיפה נדבך לאחריות החברתית שלי כמנכ״ל בתעשייה גדולה — היכרות מעמיקה עם מנהיגים ויזמים מתעשיות מגוונות, ופתרונות חדשניים שמגבירים את ההשפעה החיובית על החברה כולה.",
   },
@@ -683,14 +683,12 @@ function Testimonials() {
               key={t.name}
               className="flex flex-col rounded-3xl overflow-hidden border border-neutral-border bg-white shadow-soft hover:shadow-elevated motion-safe:hover:-translate-y-1 transition-all"
             >
-              <div className="relative bg-brand-light-blue">
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  className="mx-auto h-60 w-auto object-contain object-bottom pt-6"
-                  loading="lazy"
-                />
-              </div>
+              <img
+                src={t.img}
+                alt={t.name}
+                className="w-full h-64 object-cover object-[50%_25%]"
+                loading="lazy"
+              />
               <div className="p-6 flex flex-col flex-1">
                 <figcaption className="border-s-4 border-brand-sky ps-4">
                   <div className="text-lg font-black text-brand-navy leading-tight">{t.name}</div>
