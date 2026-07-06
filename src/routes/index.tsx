@@ -199,24 +199,24 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-brand-navy/95 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
-        <Link to="/" aria-label="לדף הבית" className="flex items-center gap-3 sm:gap-6 min-w-0">
+        <Link to="/" aria-label="לדף הבית" className="flex items-center gap-2 sm:gap-6 min-w-0">
           <img
             src={LOGO}
             alt="המרכז האקדמי פרס"
-            className="h-7 sm:h-12 w-auto shrink-0"
+            className="h-6 sm:h-12 w-auto shrink-0"
             loading="eager"
           />
           <img
             src={MENOMADIN_LOGO}
             alt="קרן מנומדין"
-            className="h-6 sm:h-10 w-auto brightness-0 invert shrink-0"
+            className="h-5 sm:h-10 w-auto brightness-0 invert shrink-0 max-[359px]:hidden"
             loading="eager"
           />
         </Link>
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <a
             href={PHONE_HREF}
-            className="inline-flex items-center justify-center gap-2 text-white/95 hover:text-brand-mint font-bold text-sm transition-colors rounded-full bg-white/10 hover:bg-white/15 w-10 h-10 md:w-auto md:h-auto md:px-4 md:py-2.5"
+            className="hidden sm:inline-flex items-center justify-center gap-2 text-white/95 hover:text-brand-mint font-bold text-sm transition-colors rounded-full bg-white/10 hover:bg-white/15 w-10 h-10 md:w-auto md:h-auto md:px-4 md:py-2.5"
             aria-label={`חייגו אלינו ${PHONE_DISPLAY}`}
           >
             <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-mint" />
@@ -226,7 +226,7 @@ export function Header() {
           </a>
           <a
             href="#register"
-            className="inline-flex items-center gap-1.5 bg-brand-mint text-brand-navy font-bold text-sm sm:text-base px-4 sm:px-6 py-2.5 rounded-full motion-safe:hover:scale-105 transition-transform shadow-soft"
+            className="inline-flex items-center gap-1.5 bg-brand-mint text-brand-navy font-bold text-sm sm:text-base px-3.5 py-2 sm:px-6 sm:py-2.5 rounded-full motion-safe:hover:scale-105 transition-transform shadow-soft whitespace-nowrap"
           >
             הרשמה ליוזמה
             <ArrowLeft className="hidden sm:block w-4 h-4" />
@@ -356,13 +356,13 @@ function RegistrationForm() {
   }
 
   return (
-    <div className="bg-white text-foreground rounded-2xl shadow-elevated p-6 sm:p-8">
+    <div className="bg-white text-foreground rounded-2xl shadow-elevated p-5 sm:p-8">
       {submitted ? (
         <ThankYou />
       ) : (
         <>
-          <div className="mb-5">
-            <h2 className="text-2xl font-bold text-brand-navy">מתעניינים ביוזמה?</h2>
+          <div className="mb-4 sm:mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-brand-navy">מתעניינים ביוזמה?</h2>
             <p className="mt-1.5 text-sm text-muted-foreground">
               השאירו פרטים ונחזור אליכם בהקדם עם כל המידע.
             </p>
@@ -376,12 +376,15 @@ function RegistrationForm() {
                 onChange={(v) => update("firstname", v)}
                 autoComplete="given-name"
               />
-              <FormInput
-                label="שם משפחה"
-                value={values.lastname}
-                onChange={(v) => update("lastname", v)}
-                autoComplete="family-name"
-              />
+              {/* Optional fields are desktop-only to keep the mobile form short */}
+              <div className="hidden sm:block">
+                <FormInput
+                  label="שם משפחה"
+                  value={values.lastname}
+                  onChange={(v) => update("lastname", v)}
+                  autoComplete="family-name"
+                />
+              </div>
             </div>
             <FormInput
               label="אימייל"
@@ -399,7 +402,7 @@ function RegistrationForm() {
               onChange={(v) => update("phone", v)}
               autoComplete="tel"
             />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="hidden sm:grid grid-cols-2 gap-3">
               <FormInput
                 label="תיאור תפקיד"
                 value={values.jobtitle}
