@@ -1,9 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  Calendar,
-  Clock,
-  Plane,
   GraduationCap,
   Award,
   Rocket,
@@ -264,23 +261,6 @@ function Hero() {
             <p className="mt-5 text-lg text-white/90 leading-relaxed max-w-xl mx-auto lg:mx-0">
               תוכנית ייחודית למנהלות ומנהלים בכירים בשיתוף Harvard Kennedy School והמרכז האקדמי פרס.
             </p>
-
-            <div className="mt-7 flex flex-wrap justify-center lg:justify-start gap-3">
-              <EventChip icon={Calendar} text="פתיחת מחזור: נובמבר 2026" />
-              <EventChip icon={Clock} text="יום ה', 15:00–20:00" />
-              <EventChip icon={GraduationCap} text="8 חודשים" />
-              <EventChip icon={Plane} text="שבוע לימודים בהרווארד" />
-            </div>
-
-            <a
-              href={PHONE_HREF}
-              className="mt-7 inline-flex items-center gap-2 text-brand-mint font-bold hover:underline"
-            >
-              <Phone className="w-4 h-4" />
-              <span>
-                מעדיפים לדבר? <span dir="ltr">{PHONE_DISPLAY}</span>
-              </span>
-            </a>
           </div>
 
           <div id="register" className="scroll-mt-24 animate-fade-up">
@@ -289,15 +269,6 @@ function Hero() {
         </div>
       </div>
     </section>
-  );
-}
-
-function EventChip({ icon: Icon, text }: { icon: LucideIcon; text: string }) {
-  return (
-    <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full ps-4 pe-5 py-2 text-sm font-medium">
-      <Icon className="w-4 h-4 text-brand-mint" />
-      <span>{text}</span>
-    </div>
   );
 }
 
@@ -618,24 +589,25 @@ function Reasons() {
 
 function Audience() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
+    <section className="py-20 lg:py-28 bg-brand-light-blue/30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="קהל היעד"
           title="למי מתאימה היוזמה?"
           subtitle="מספר המקומות במחזור מוגבל, והקבלה מותנית בתהליך מיון אישי."
         />
-        <div className="grid sm:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-3 gap-6 lg:gap-8">
           {AUDIENCE.map((a) => (
             <div
               key={a.title}
-              className="text-center bg-neutral-surface/60 border border-neutral-border rounded-2xl p-8 hover:border-brand-sky transition-colors"
+              className="group relative text-center bg-white border border-neutral-border rounded-2xl p-8 pt-10 shadow-soft hover:shadow-elevated hover:border-brand-sky motion-safe:hover:-translate-y-1 transition-all"
             >
-              <div className="mx-auto w-14 h-14 rounded-2xl bg-brand-navy text-brand-mint flex items-center justify-center mb-4">
-                <a.icon className="w-7 h-7" />
+              <div className="absolute inset-x-0 top-0 h-1.5 rounded-t-2xl bg-gradient-to-l from-brand-sky to-brand-mint opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue-mid to-brand-navy text-brand-mint flex items-center justify-center ring-4 ring-brand-light-blue/50 group-hover:ring-brand-mint/40 transition-all">
+                <a.icon className="w-8 h-8" />
               </div>
-              <h3 className="text-lg font-bold text-brand-navy">{a.title}</h3>
-              <p className="mt-2 text-base text-muted-foreground leading-relaxed">{a.body}</p>
+              <h3 className="mt-6 text-xl font-bold text-brand-navy">{a.title}</h3>
+              <p className="mt-2.5 text-base text-muted-foreground leading-relaxed">{a.body}</p>
             </div>
           ))}
         </div>
