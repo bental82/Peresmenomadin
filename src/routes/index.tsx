@@ -43,7 +43,8 @@ const LOGO = "https://www.pac.ac.il/wp-content/themes/peres/assets/images/logo.p
 const MENOMADIN_LOGO = "https://menomadinfoundation.com/wp-content/uploads/logo.svg";
 const HERO_IMG =
   "https://www.pac.ac.il/wp-content/uploads/2024/05/%D7%91%D7%99%D7%AA-%D7%94%D7%A0%D7%A9%D7%99%D7%90.jpg";
-const LAUNCH_VIDEO_EMBED = "https://www.youtube-nocookie.com/embed/7BjMNwYzqGw";
+const VIDEO_EMBED =
+  "https://player.vimeo.com/video/1078274697?badge=0&autopause=0&player_id=0&app_id=58479";
 
 const PHONE_DISPLAY = "077-2318468";
 const PHONE_HREF = "tel:077-2318468";
@@ -185,7 +186,6 @@ function LandingPage() {
         <FinalCta />
       </main>
       <Footer />
-      <StickyRegisterCTA />
       <PrivacyConsentBanner />
     </div>
   );
@@ -209,28 +209,27 @@ export function Header() {
             loading="eager"
           />
         </Link>
-        <a
-          href={PHONE_HREF}
-          className="inline-flex items-center gap-1.5 sm:gap-2 text-white/95 hover:text-brand-mint font-bold text-sm sm:text-base transition-colors shrink-0 rounded-full bg-white/10 hover:bg-white/15 px-3 py-2.5 min-h-11"
-          aria-label={`חייגו אלינו ${PHONE_DISPLAY}`}
-        >
-          <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-mint" />
-          <span dir="ltr">{PHONE_DISPLAY}</span>
-        </a>
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <a
+            href={PHONE_HREF}
+            className="inline-flex items-center justify-center gap-2 text-white/95 hover:text-brand-mint font-bold text-sm transition-colors rounded-full bg-white/10 hover:bg-white/15 w-10 h-10 md:w-auto md:h-auto md:px-4 md:py-2.5"
+            aria-label={`חייגו אלינו ${PHONE_DISPLAY}`}
+          >
+            <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-mint" />
+            <span dir="ltr" className="hidden md:inline">
+              {PHONE_DISPLAY}
+            </span>
+          </a>
+          <a
+            href="#register"
+            className="inline-flex items-center gap-1.5 bg-brand-mint text-brand-navy font-bold text-sm sm:text-base px-4 sm:px-6 py-2.5 rounded-full motion-safe:hover:scale-105 transition-transform shadow-soft"
+          >
+            הרשמה ליוזמה
+            <ArrowLeft className="hidden sm:block w-4 h-4" />
+          </a>
+        </div>
       </div>
     </header>
-  );
-}
-
-function StickyRegisterCTA() {
-  return (
-    <a
-      href="#register"
-      className="fixed bottom-4 end-4 sm:bottom-6 sm:end-6 z-40 inline-flex items-center gap-2 bg-brand-mint text-brand-navy font-bold px-5 py-3 sm:px-6 sm:py-3.5 rounded-full text-sm sm:text-base shadow-elevated motion-safe:hover:scale-105 transition-transform"
-    >
-      הרשמה ליוזמה
-      <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-    </a>
   );
 }
 
@@ -451,7 +450,7 @@ function RegistrationForm() {
               disabled={submitting}
               className="w-full h-12 rounded-full bg-brand-mint text-brand-navy hover:bg-brand-mint/90 font-bold text-base"
             >
-              {submitting ? "שולח…" : "שליחת פרטים"}
+              {submitting ? "שולח…" : "אני רוצה לעשות שינוי"}
             </Button>
           </form>
           <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
@@ -547,10 +546,10 @@ function MissionNetwork() {
 
         <div className="mt-12 rounded-2xl overflow-hidden shadow-elevated border border-neutral-border aspect-video bg-brand-navy">
           <iframe
-            src={LAUNCH_VIDEO_EMBED}
-            title="אירוע השקת יוזמת מנומדין-פרס למנהלים"
+            src={VIDEO_EMBED}
+            title="יוזמת מנומדין-פרס למנהלים"
             loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
             className="w-full h-full"
@@ -591,18 +590,24 @@ function Reasons() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader eyebrow="למה להצטרף?" title="ארבע סיבות טובות להיות חלק מהיוזמה" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {REASONS.map((r) => (
+          {REASONS.map((r, i) => (
             <div
               key={r.title}
-              className="group bg-white border border-neutral-border rounded-2xl p-6 hover:border-brand-sky motion-safe:hover:-translate-y-1 transition-all shadow-soft"
+              className="relative group bg-white border border-neutral-border rounded-2xl p-7 hover:border-brand-sky motion-safe:hover:-translate-y-1 hover:shadow-elevated transition-all shadow-soft overflow-hidden"
             >
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-12 h-12 rounded-xl bg-brand-light-blue text-brand-blue flex items-center justify-center shrink-0 group-hover:bg-brand-mint group-hover:text-brand-navy transition-colors">
-                  <r.icon className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-brand-navy">{r.title}</h3>
+              <span
+                aria-hidden="true"
+                className="absolute top-4 end-5 text-6xl font-black leading-none text-brand-light-blue/50 select-none"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="relative w-14 h-14 rounded-2xl bg-brand-navy text-brand-mint flex items-center justify-center group-hover:bg-brand-mint group-hover:text-brand-navy transition-colors">
+                <r.icon className="w-7 h-7" />
               </div>
-              <p className="text-base text-muted-foreground leading-relaxed">{r.body}</p>
+              <h3 className="relative mt-5 text-lg font-bold text-brand-navy">{r.title}</h3>
+              <p className="relative mt-2 text-base text-muted-foreground leading-relaxed">
+                {r.body}
+              </p>
             </div>
           ))}
         </div>
@@ -696,42 +701,34 @@ function Accelerator() {
 
 function Testimonials() {
   return (
-    <section className="py-20 lg:py-28 bg-brand-navy text-white relative overflow-hidden">
-      <div className="absolute -top-32 -end-32 w-96 h-96 rounded-full bg-brand-sky/20 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -start-32 w-96 h-96 rounded-full bg-brand-mint/10 blur-3xl pointer-events-none" />
+    <section className="py-20 lg:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader eyebrow="משתתפי היוזמה מספרים" title="הבוגרים שכבר מובילים שינוי" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-14">
-          <div className="inline-block text-sm font-semibold text-brand-mint uppercase tracking-wider mb-3">
-            משתתפי היוזמה מספרים
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
-            הבוגרים שכבר מובילים שינוי
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {TESTIMONIALS.map((t) => (
             <figure
               key={t.name}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-brand-mint/50 transition-colors flex flex-col"
+              className="flex flex-col rounded-3xl overflow-hidden border border-neutral-border bg-white shadow-soft hover:shadow-elevated motion-safe:hover:-translate-y-1 transition-all"
             >
-              <Quote className="w-8 h-8 text-brand-mint mb-4" aria-hidden="true" />
-              <blockquote className="text-white/85 text-base leading-relaxed flex-1">
-                {t.quote}
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 pt-4 border-t border-white/10">
+              <div className="relative bg-brand-light-blue">
                 <img
                   src={t.img}
                   alt={t.name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-brand-mint/40"
+                  className="mx-auto h-60 w-auto object-contain object-bottom pt-6"
                   loading="lazy"
                 />
-                <div>
-                  <div className="font-bold text-white">{t.name}</div>
-                  <div className="text-xs text-white/60">{t.role}</div>
-                </div>
-              </figcaption>
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <figcaption className="border-s-4 border-brand-sky ps-4">
+                  <div className="text-lg font-black text-brand-navy leading-tight">{t.name}</div>
+                  <div className="mt-1 text-sm font-medium text-brand-blue-mid">{t.role}</div>
+                </figcaption>
+                <blockquote className="mt-5 text-base text-muted-foreground leading-relaxed flex-1">
+                  <Quote className="w-6 h-6 text-brand-mint mb-2" aria-hidden="true" />
+                  {t.quote}
+                </blockquote>
+              </div>
             </figure>
           ))}
         </div>
