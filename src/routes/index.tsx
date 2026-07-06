@@ -262,10 +262,8 @@ function Hero() {
 
             <p className="mt-6 text-lg text-white/90 leading-relaxed max-w-xl mx-auto lg:mx-0">
               תוכנית ייחודית למנהלות ומנהלים בכירים בשיתוף{" "}
-              <mark className="bg-brand-mint/20 text-brand-mint font-bold px-1.5 py-0.5 rounded-md">
-                Harvard Kennedy School
-              </mark>{" "}
-              והמרכז האקדמי פרס.
+              <span className="text-brand-mint font-bold">Harvard Kennedy School</span> והמרכז
+              האקדמי פרס.
             </p>
           </div>
 
