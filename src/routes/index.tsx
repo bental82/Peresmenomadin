@@ -216,7 +216,7 @@ export function Header() {
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <a
             href={PHONE_HREF}
-            className="hidden sm:inline-flex items-center justify-center gap-2 text-white/95 hover:text-brand-mint font-bold text-sm transition-colors rounded-full bg-white/10 hover:bg-white/15 w-10 h-10 md:w-auto md:h-auto md:px-4 md:py-2.5"
+            className="inline-flex items-center justify-center gap-2 text-white/95 hover:text-brand-mint font-bold text-sm transition-colors rounded-full bg-white/10 hover:bg-white/15 w-9 h-9 sm:w-10 sm:h-10 md:w-auto md:h-auto md:px-4 md:py-2.5 shrink-0"
             aria-label={`חייגו אלינו ${PHONE_DISPLAY}`}
           >
             <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-mint" />
@@ -226,7 +226,7 @@ export function Header() {
           </a>
           <a
             href="#register"
-            className="inline-flex items-center gap-1.5 bg-brand-mint text-brand-navy font-bold text-sm sm:text-base px-3.5 py-2 sm:px-6 sm:py-2.5 rounded-full motion-safe:hover:scale-105 transition-transform shadow-soft whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 bg-brand-mint text-brand-navy font-bold text-xs sm:text-base px-3 py-2 sm:px-6 sm:py-2.5 rounded-full motion-safe:hover:scale-105 transition-transform shadow-soft whitespace-nowrap"
           >
             הרשמה ליוזמה
             <ArrowLeft className="hidden sm:block w-4 h-4" />
