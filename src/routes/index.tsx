@@ -332,6 +332,14 @@ function getHubspotCookie(): string | undefined {
   return document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/)?.[1];
 }
 
+// "054-676-7250" / "+972 54 676 7250" / "0546767250" → "972546767250"
+function normalizePhoneIL(raw: string): string {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.startsWith("972")) return digits;
+  if (digits.startsWith("0")) return `972${digits.slice(1)}`;
+  return digits ? `972${digits}` : "";
+}
+
 function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -357,12 +365,15 @@ function RegistrationForm() {
       // HubSpot keeps separate first/last name properties — split on the first space
       const [firstname, ...lastnameParts] = fullName.split(" ");
       const lastname = lastnameParts.join(" ");
+      const phone = normalizePhoneIL(values.phone);
       const fieldValues: Record<string, string> = {
         firstname,
         ...(lastname ? { lastname } : {}),
         full_name_he: fullName,
         email: values.email.trim(),
-        phone: values.phone.trim(),
+        phone,
+        mobilephone: phone,
+        hs_whatsapp_phone_number: phone,
         ...(values.jobtitle.trim() ? { jobtitle: values.jobtitle.trim() } : {}),
         ...(values.company.trim() ? { company: values.company.trim() } : {}),
         ...utm,
