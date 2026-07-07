@@ -280,8 +280,7 @@ const HUBSPOT_PORTAL_ID = "143688847";
 const HUBSPOT_FORM_ID = "9d94c50a-f4c4-48b1-9dc9-1a4ccb41a793";
 
 type FormState = {
-  firstname: string;
-  lastname: string;
+  fullname: string;
   email: string;
   phone: string;
   jobtitle: string;
@@ -289,19 +288,56 @@ type FormState = {
 };
 
 const EMPTY_FORM: FormState = {
-  firstname: "",
-  lastname: "",
+  fullname: "",
   email: "",
   phone: "",
   jobtitle: "",
   company: "",
 };
 
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const;
+const UTM_STORAGE_KEY = "utm-params";
+
+// Capture UTM params from the URL once and keep them for the whole visit,
+// so the lead still carries attribution even after in-page navigation.
+function useUtmParams() {
+  const [utm, setUtm] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    try {
+      const search = new URLSearchParams(window.location.search);
+      const fromUrl: Record<string, string> = {};
+      for (const key of UTM_KEYS) {
+        const value = search.get(key);
+        if (value) fromUrl[key] = value.slice(0, 250);
+      }
+      const stored = JSON.parse(sessionStorage.getItem(UTM_STORAGE_KEY) ?? "{}") as Record<
+        string,
+        string
+      >;
+      const merged = { ...stored, ...fromUrl };
+      if (Object.keys(fromUrl).length > 0) {
+        sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(merged));
+      }
+      setUtm(merged);
+    } catch {
+      // ignore — attribution is best-effort
+    }
+  }, []);
+
+  return utm;
+}
+
+function getHubspotCookie(): string | undefined {
+  return document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/)?.[1];
+}
+
 function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [values, setValues] = useState<FormState>(EMPTY_FORM);
+  const utm = useUtmParams();
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -310,22 +346,28 @@ function RegistrationForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!values.firstname.trim() || !values.email.trim() || !values.phone.trim()) {
+    const fullName = values.fullname.trim().replace(/\s+/g, " ");
+    if (!fullName || !values.email.trim() || !values.phone.trim()) {
       setError("נא למלא שם, אימייל וטלפון.");
       return;
     }
     setSubmitting(true);
     try {
       const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
-      const fullNameHe = `${values.firstname.trim()} ${values.lastname.trim()}`.trim();
+      // HubSpot keeps separate first/last name properties — split on the first space
+      const [firstname, ...lastnameParts] = fullName.split(" ");
+      const lastname = lastnameParts.join(" ");
       const fieldValues: Record<string, string> = {
-        ...Object.fromEntries(
-          (Object.keys(values) as (keyof FormState)[])
-            .filter((k) => values[k].trim() !== "")
-            .map((k) => [k, values[k].trim()]),
-        ),
-        full_name_he: fullNameHe,
+        firstname,
+        ...(lastname ? { lastname } : {}),
+        full_name_he: fullName,
+        email: values.email.trim(),
+        phone: values.phone.trim(),
+        ...(values.jobtitle.trim() ? { jobtitle: values.jobtitle.trim() } : {}),
+        ...(values.company.trim() ? { company: values.company.trim() } : {}),
+        ...utm,
       };
+      const hutk = getHubspotCookie();
       const payload = {
         fields: Object.entries(fieldValues).map(([name, value]) => ({
           objectTypeId: "0-1",
@@ -333,8 +375,9 @@ function RegistrationForm() {
           value,
         })),
         context: {
-          pageUri: typeof window !== "undefined" ? window.location.href : "",
-          pageName: typeof document !== "undefined" ? document.title : "",
+          ...(hutk ? { hutk } : {}),
+          pageUri: window.location.href,
+          pageName: document.title,
         },
       };
       const res = await fetch(endpoint, {
@@ -368,41 +411,32 @@ function RegistrationForm() {
             </p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-3" noValidate>
+            <FormInput
+              label="שם מלא"
+              required
+              value={values.fullname}
+              onChange={(v) => update("fullname", v)}
+              autoComplete="name"
+            />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <FormInput
-                label="שם פרטי"
+                label="אימייל"
+                type="email"
                 required
-                value={values.firstname}
-                onChange={(v) => update("firstname", v)}
-                autoComplete="given-name"
+                value={values.email}
+                onChange={(v) => update("email", v)}
+                autoComplete="email"
               />
-              {/* Optional fields are desktop-only to keep the mobile form short */}
-              <div className="hidden sm:block">
-                <FormInput
-                  label="שם משפחה"
-                  value={values.lastname}
-                  onChange={(v) => update("lastname", v)}
-                  autoComplete="family-name"
-                />
-              </div>
+              <FormInput
+                label="טלפון"
+                type="tel"
+                required
+                value={values.phone}
+                onChange={(v) => update("phone", v)}
+                autoComplete="tel"
+              />
             </div>
-            <FormInput
-              label="אימייל"
-              type="email"
-              required
-              value={values.email}
-              onChange={(v) => update("email", v)}
-              autoComplete="email"
-            />
-            <FormInput
-              label="טלפון"
-              type="tel"
-              required
-              value={values.phone}
-              onChange={(v) => update("phone", v)}
-              autoComplete="tel"
-            />
-            <div className="hidden sm:grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <FormInput
                 label="תיאור תפקיד"
                 value={values.jobtitle}
