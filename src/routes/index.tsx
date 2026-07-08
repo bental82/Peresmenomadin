@@ -277,7 +277,9 @@ function Hero() {
 }
 
 const HUBSPOT_PORTAL_ID = "143688847";
-const HUBSPOT_FORM_ID = "9d94c50a-f4c4-48b1-9dc9-1a4ccb41a793";
+const HUBSPOT_FORM_ID = "61da54f4-edd3-4cde-81c5-d444dc738c58";
+// EU-hosted portal — submissions must go to the eu1 endpoint
+const HUBSPOT_SUBMIT_URL = `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
 
 type FormState = {
   fullname: string;
@@ -361,7 +363,6 @@ function RegistrationForm() {
     }
     setSubmitting(true);
     try {
-      const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
       // HubSpot keeps separate first/last name properties — split on the first space
       const [firstname, ...lastnameParts] = fullName.split(" ");
       const lastname = lastnameParts.join(" ");
@@ -391,7 +392,7 @@ function RegistrationForm() {
           pageName: document.title,
         },
       };
-      const res = await fetch(endpoint, {
+      const res = await fetch(HUBSPOT_SUBMIT_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
