@@ -101,13 +101,11 @@ const TESTIMONIALS: {
       "דווקא בעידן שבו חוסר הסדר ואי האמון שולטים בסדר היום, נדרש מכל אחד ואחת מאתנו לעשות מעשה ולהשפיע. יוזמת מנומדין-פרס למנהלים יוצרת קרקע פורייה לחשיבה ולעשייה קבוצתית שתוביל לשינוי.",
   },
   {
-    name: "שחר אזרחי",
-    role: 'סמנכ"ל הנדסה, אשדר',
-    img: "/images/testimonials/shahar-ezrahi.jpg",
-    // Tight headshot on a white background — contain (not cover) so the head isn't cropped
-    imgClass: "object-contain bg-white",
+    name: "נעם הלל הררי",
+    role: "EMEA Public Relations Manager, NiCE",
+    img: "/images/testimonials/noam-halel-harari.jpg",
     quote:
-      "מסלול ההכשרה ביוזמת המנהלים הייחודית מיועד לטיפוח מנהיגות אישית ולפיתוח כלים להובלת שינוי בחברה הישראלית ולמעורבות בזירה הציבורית.",
+      "עבורי היוזמה היא הזדמנות לפעול בתוך קבוצה מגוונת ומשפיעה, לרכוש כלים אסטרטגיים חדשים ולרתום את העשייה המשותפת שלנו כדי לחולל שינוי ממשי בשטח.",
   },
   {
     name: "יפתח עצמון",
@@ -115,6 +113,13 @@ const TESTIMONIALS: {
     img: "/images/testimonials/yiftach-atzmon.jpg",
     quote:
       "יוזמת מנומדין-פרס למנהלים היא הזדמנות לשלב בחיים המקצועיים והאישיים העמוסים למידה משמעותית, שמוסיפה נדבך לאחריות החברתית שלי כמנכ״ל בתעשייה גדולה — היכרות מעמיקה עם מנהיגים ויזמים מתעשיות מגוונות, ופתרונות חדשניים שמגבירים את ההשפעה החיובית על החברה כולה.",
+  },
+  {
+    name: "אבי בוסקילה",
+    role: "SVP Production Programs, Mobileye",
+    img: "/images/testimonials/avi-buskila.jpg",
+    quote:
+      "אחרי ה-7 באוקטובר הבנתי שישראל זקוקה לתיקון. יוזמת ״מנומדין-פרס למנהלים״ העניקה לי הבנה עמוקה יותר של האתגרים בישראל, וחיברה אותי לאנשים מעוררי השראה שלא הייתי פוגש בשום מקום אחר.",
   },
 ];
 
@@ -730,7 +735,7 @@ function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader eyebrow="משתתפי היוזמה מספרים" title="הבוגרים שכבר מובילים שינוי" />
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {TESTIMONIALS.map((t) => (
             <figure
               key={t.name}
