@@ -214,7 +214,7 @@ export function Header() {
           <img
             src={TAIB_LOGO}
             alt="TAiB Foundation"
-            className="h-6 sm:h-11 w-auto shrink-0 max-[359px]:hidden"
+            className="h-5 sm:h-8 w-auto shrink-0 max-[359px]:hidden"
             loading="eager"
           />
         </Link>
