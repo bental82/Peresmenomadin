@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
 });
 
 const LOGO = "https://www.pac.ac.il/wp-content/themes/peres/assets/images/logo.png";
-const MENOMADIN_LOGO = "https://menomadinfoundation.com/wp-content/uploads/logo.svg";
+const TAIB_LOGO = "/images/taib-foundation-logo.png";
 const HERO_IMG =
   "https://www.pac.ac.il/wp-content/uploads/2024/05/%D7%91%D7%99%D7%AA-%D7%94%D7%A0%D7%A9%D7%99%D7%90.jpg";
 const VIDEO_EMBED =
@@ -212,9 +212,9 @@ export function Header() {
             loading="eager"
           />
           <img
-            src={MENOMADIN_LOGO}
-            alt="קרן מנומדין"
-            className="h-5 sm:h-10 w-auto brightness-0 invert shrink-0 max-[359px]:hidden"
+            src={TAIB_LOGO}
+            alt="TAiB Foundation"
+            className="h-6 sm:h-11 w-auto shrink-0 max-[359px]:hidden"
             loading="eager"
           />
         </Link>
