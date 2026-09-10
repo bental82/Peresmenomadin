@@ -19,7 +19,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 const SITE_TITLE = "יוזמת מנומדין-פרס למנהלים | המרכז האקדמי פרס";
 const SITE_DESCRIPTION =
-  "יוזמת מנומדין-פרס למנהלים בשיתוף Harvard Kennedy School — תוכנית מנהיגות ייחודית למנהלות ומנהלים בכירים במשק הישראלי. נובמבר 2026. השאירו פרטים.";
+  "יוזמת מנומדין-פרס למנהלים בשיתוף Harvard Kennedy School — תוכנית מנהיגות ייחודית למנהלות ומנהלים בכירים במשק הישראלי. 15 בספטמבר 2026. השאירו פרטים.";
 const OG_IMAGE =
   "https://www.pac.ac.il/wp-content/uploads/2024/05/%D7%91%D7%99%D7%AA-%D7%94%D7%A0%D7%A9%D7%99%D7%90.jpg";
 
