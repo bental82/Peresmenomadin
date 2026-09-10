@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
 });
 
 const LOGO = "https://www.pac.ac.il/wp-content/themes/peres/assets/images/logo.png";
-const TAIB_LOGO = "/images/taib-foundation-logo.png";
+const TAIB_LOGO = "/images/taib-foundation-logo-white.png";
 const HERO_IMG =
   "https://www.pac.ac.il/wp-content/uploads/2024/05/%D7%91%D7%99%D7%AA-%D7%94%D7%A0%D7%A9%D7%99%D7%90.jpg";
 const VIDEO_EMBED =
