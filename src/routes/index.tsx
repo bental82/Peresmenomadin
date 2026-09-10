@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "יוזמת מנומדין-פרס למנהלים בשיתוף Harvard Kennedy School — תוכנית מנהיגות ייחודית למנהלות ומנהלים בכירים במשק הישראלי. 15 בספטמבר 2026. השאירו פרטים.",
+          "יוזמת מנומדין-פרס למנהלים בשיתוף Harvard Kennedy School — תוכנית מנהיגות ייחודית למנהלות ומנהלים בכירים במשק הישראלי. נובמבר 2026. השאירו פרטים.",
       },
     ],
   }),
@@ -774,7 +774,7 @@ function FinalCta() {
       <div className="absolute -top-24 start-1/3 w-80 h-80 rounded-full bg-brand-sky/15 blur-3xl pointer-events-none" />
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-block text-sm font-semibold text-brand-mint uppercase tracking-wider mb-3">
-          המחזור הקרוב — 15 בספטמבר 2026
+          המחזור הקרוב — נובמבר 2026
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
           מוכנים לעשות את הצעד הבא?
